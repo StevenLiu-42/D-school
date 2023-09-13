@@ -30,7 +30,7 @@ function SkillsForm() {
         }}
       >
         <div className="mb-4">
-          <label className="mb-2">請輸入學號</label>
+          <label className="mb-2 font-semibold">請輸入學號</label>
           <input
             type="text"
             className="w-full border rounded"
