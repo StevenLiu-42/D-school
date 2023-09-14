@@ -38,7 +38,7 @@ function Academy() {
       newLabels.push(pro)
        newValues.push(n)
   };
-  console.log(newLabels,newValues)
+  // console.log(newLabels,newValues)
   
   const chartData = {
     newLabels,

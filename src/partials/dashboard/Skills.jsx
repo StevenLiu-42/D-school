@@ -8,12 +8,12 @@ import {
   Legend
 } from "chart.js";
 import { Radar } from "react-chartjs-2";
-
+import React, { useEffect, useState } from "react";
 // Import utilities
-// import { useCookies } from "react-cookie";
+import { useCookies } from "react-cookie";
 import { tailwindConfig } from "../../utils/Utils";
-import { skills } from "../../data/mockData";
-
+// import { skills } from "../../data/mockData";
+import  useSkills  from "../../hooks/dashboard/useSkills"
 ChartJS.register(
   RadialLinearScale,
   PointElement,
@@ -24,16 +24,41 @@ ChartJS.register(
 );
 
 function Skills() {
-  // const [cookies] = useCookies(["studentId"]);
-  // const { studentId } = cookies;
-  const studentId = "B11000000";
-  const { labels, values } = skills;
+  const [cookies] = useCookies(["studentId"]);
+  const { studentId } = cookies;
+  // const studentId = "B11000000";
+  // const data  = useSkills(studentId)
+  const [skillsData, setSkillsData] = useState(null); // State to store skills data
+
+  // Call the useSkills function to fetch data
+  useEffect(() => {
+    if (studentId) {
+      // Call the useSkills function with the studentId and update the state
+      useSkills(studentId)
+        .then((data) => {
+          setSkillsData(data); // Store the data in the state
+        })
+        .catch((error) => {
+          console.error("Error fetching skills data:", error);
+        });
+    }
+  }, [studentId]);
+  // const = await useSkills();
+  // const labels = [
+  //   "UIUX",
+  //   "backend",
+  //   "business analysis",
+  //   "design thinking",
+  //   "frontend"
+  // ]
+  const labels = skillsData ? Object.keys(skillsData) : [];
+  console.log(skillsData)
   const chartData = {
     labels,
     datasets: [
       {
         label: "能力值",
-        data: values,
+        data:  skillsData ? Object.values(skillsData) : [],
         backgroundColor: tailwindConfig().theme.colors.orange[500],
         borderColor: tailwindConfig().theme.colors.orange[500],
         borderWidth: 2
