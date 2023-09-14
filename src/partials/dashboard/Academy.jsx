@@ -14,13 +14,39 @@ function Academy() {
     }
     return color;
   };
+  const labelMappings = {  "理學院":["心理所一般組", "數學系", "物理學系", "心理學系"], 
+    "創新設計學院":["創新領域學士學位學程"],
+    "電機資訊學院":["電機工程學系", "資訊工程學系", "生醫電資所", "資訊工程研究所"],
+    "生物資源暨農學院":["生物機電工程學系"],
+    "社會科學院":["經濟學系", "經濟系"],
+    "法律學院":["科際整合法律學研究所"],
+    "工學院":["材料科學與工程學系", "工程科學及海洋工程學系", "醫學工程學系"],
+    "管理學院":["工商管理學系 科技管理組", "工商管理學系", "會計學系", "國際企業學系", "資訊管理學系"],
+    "醫學院":["物理治療學系"],
+    "文學院":["戲劇學系", "外國語文學系 / 圖書資訊學系", "歷史學系", "外國語文學系/社會學系"]
+};
+  const newLabels = []
+  const newValues = []
+  // console.log(labels,values)
+  for (const pro in labelMappings) {
+    let n = 0
+    for (let i=0;i < labels?.length; i++) {
+        if (labelMappings[pro].includes(labels[i])){
+          n += values[i]
+         };
+        };
+      newLabels.push(pro)
+       newValues.push(n)
+  };
+  console.log(newLabels,newValues)
+  
   const chartData = {
-    labels,
+    newLabels,
     datasets: [
       {
         label: "Distribution of colleges",
-        data: values,
-        backgroundColor: values?.map(() => getRandomColor()),
+        data: newValues,
+        backgroundColor: newValues?.map(() => getRandomColor()),
         borderWidth: 0
       }
     ]
