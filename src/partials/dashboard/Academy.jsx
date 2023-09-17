@@ -41,7 +41,7 @@ function Academy() {
   // console.log(newLabels,newValues)
   
   const chartData = {
-    newLabels,
+    labels:newLabels,
     datasets: [
       {
         label: "Distribution of colleges",
